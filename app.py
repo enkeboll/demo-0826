@@ -2,6 +2,7 @@ import os
 from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from os.path import join, dirname, realpath
+from jinja2 import Template
 
 from evaluate import ffwd
 
@@ -37,15 +38,18 @@ def upload_file():
             ffwd(['uploads/' + filename], ['results/' + filename], batch_size=1)
             return redirect(url_for('uploaded_file',
                                     filename=filename))
-    return '''
+    template = Template('''
     <!doctype html>
     <title>Upload new File</title>
     <h1>Upload new File</h1>
+    <h3>My secret is {{ secret }}</h3>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
       <input type=submit value=Upload>
     </form>
-    '''
+    ''')
+    secret = os.getenv('MY_SECRET_PASSWORD')
+    return template.render(secret=secret)
 
 
 @app.route('/uploads/<filename>')
