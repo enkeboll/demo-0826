@@ -1,4 +1,4 @@
-Flask==0.12
+Flask==1.0
 tensorflow==1.14.0
 requests
 numpy
