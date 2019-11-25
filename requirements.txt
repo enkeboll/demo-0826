@@ -1,0 +1,9 @@
+Flask==0.12
+tensorflow==1.14.0
+requests
+numpy
+gunicorn
+opencv-python-headless
+scipy
+pillow
+imageio
